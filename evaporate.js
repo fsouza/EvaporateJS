@@ -74,6 +74,7 @@
       s3FileCacheHoursAgo: null, // Must be a whole number of hours. Will be interpreted as negative (hours in the past).
       signParams: {},
       signHeaders: {},
+      signTimeout: 0,
       customAuthMethod: undefined,
       maxFileSize: null,
       signResponseHandler: null,
@@ -1871,6 +1872,7 @@
     AuthorizationMethod.prototype.authorize = function () {
       return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
+        xhr.timeout = con.signTimeout;
         awsRequest.currentXhr = xhr;
 
         var stringToSign = awsRequest.stringToSign(),
